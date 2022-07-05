@@ -40,10 +40,12 @@ postMerge :
             TEST_BACKEND: 1
           command:
             - node test/prepare-jest.js
-        parallelism: 2
-        splitMode: file
+     
         
         configFile : "./config/jest-backend.config.js"  
+        
+        parallelism: 2
+        splitMode: file
       
         
       
