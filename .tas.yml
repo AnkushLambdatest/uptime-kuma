@@ -1,35 +1,103 @@
---- 
-postMerge: 
+
+postMerge :
   preRun: 
-    command: 
-      - "npm install"
-      - "npm run build"
-      - "node test/prepare-jest.js"
-  subModules: 
-    - 
-      configFile: ./config/jest-frontend.config.js
-      framework: jest
-      name: frontend
-      path: ./test
-      pattern: 
-        - ./test/frontend.spec.js
-      preRun: 
-        env: 
-          TEST_FRONTEND: 1
-    - 
-      configFile: ./config/jest-backend.config.js
-      framework: jest
-      name: backend
-      parallelism: 2
-      path: ./test
-      pattern: 
-        - ./test/backend.spec.js
-      preRun: 
-        env: 
-          TEST_BACKEND: 1
-      splitMode: file
-tier: large
-version: "2.0.0"
+    command:
+      - npm install
+      - npm run build
+      - node test/prepare-jest.js
+      
+  
+  subModules:          #Not to be changed
+      
+        
+      - name: frontend      
+        path : "./"
+        pattern: 
+          - "./test/frontend.spec.js"
+        
+        framework : jest
+        runPreRunEveryTime: true
+        preRun:
+          env:
+            TEST_FRONTEND: 1
+          command:
+            - node test/prepare-jest.js
+            
+        
+        configFile : "./config/jest-frontend.config.js"
+        
+      - name: backend      
+        path : "./"
+        pattern: 
+          - "./test/backend.spec.js"
+        
+        blocklist:
+          - "./test/backend.spec.js##Test reset-password"
+        
+        framework : jest
+        runPreRunEveryTime: true
+        preRun:
+          env:
+            TEST_BACKEND: 1
+          command:
+            - node test/prepare-jest.js
+        parallelism: 2
+        
+        configFile : "./config/jest-backend.config.js"  
+      
+        
+      
+        
+preMerge :
+  preRun: 
+    command:
+      - npm install
+      - npm run build
+      - node test/prepare-jest.js
+      
+  
+  subModules:          #Not to be changed
+      
+        
+      - name: frontend      
+        path : "./"
+        pattern: 
+          - "./test/frontend.spec.js"
+        
+        framework : jest
+        runPreRunEveryTime: true
+        preRun:
+          env:
+            TEST_FRONTEND: 1
+          command:
+            - node test/prepare-jest.js
+            
+        
+        configFile : "./config/jest-frontend.config.js"
+        
+      - name: backend      
+        path : "./"
+        pattern: 
+          - "./test/backend.spec.js"
+        
+        blocklist:
+          - "./test/backend.spec.js##Test reset-password"
+        
+        framework : jest
+        runPreRunEveryTime: true
+        preRun:
+          env:
+            TEST_BACKEND: 1
+          command:
+            - node test/prepare-jest.js
+        parallelism: 2
+        
+        configFile : "./config/jest-backend.config.js"  
+        
+        
+version : 2.0
+nodeVersion : 17.3.1
+
 
 # postMerge :
 #   preRun: 
