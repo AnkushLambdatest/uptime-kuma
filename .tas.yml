@@ -95,7 +95,7 @@ preMerge :
         configFile : "./config/jest-backend.config.js"  
         
         
-version : 2.0
+version : 1.0
 nodeVersion : 17.3.1
 
 
